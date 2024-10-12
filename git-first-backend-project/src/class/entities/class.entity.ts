@@ -18,9 +18,6 @@ export class group{
     semester: number 
 
     @Column()
-    subjects: []
-
-    @Column()
     headcount: number
     
     
