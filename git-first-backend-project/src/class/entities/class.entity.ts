@@ -19,5 +19,9 @@ export class group{
 
     @Column()
     subjects: []
+
+    @Column()
+    headcount: number
+    
     
 }
