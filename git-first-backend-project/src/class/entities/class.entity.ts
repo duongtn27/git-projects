@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from "typeorm";
 
-@Entity('class')
+@Entity('group')
 export class group{
     @PrimaryColumn({type: String})
     id: String 
