@@ -7,18 +7,8 @@ export class group{
 
     @Column()
     name: String 
-
-    // @Column()
-    // students : []
-
-    @Column()
-    lecturer: String //ID of lecturer
     
     @Column()
     semester: number 
 
-    @Column()
-    headcount: number
-    
-    
 }
