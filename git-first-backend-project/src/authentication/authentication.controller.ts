@@ -1,21 +1,25 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { SignInDto } from './dto/signin.dto';
-import { AuthenticationGuard } from './authentication.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { RefreshJwtGuard } from './guards/refresh-jwt-auth.guard';
 
-@Controller('authentication')
+@Controller('auth')
 export class AuthenticationController {
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(
+        private authService: AuthenticationService,
+    ) { }
 
-    @HttpCode(HttpStatus.OK)
+    @UseGuards(LocalAuthGuard)
     @Post('login')
-    signIn(@Body() signInDto: SignInDto) {
-        return this.authenticationService.signIn(signInDto.email, signInDto.password);
+    @HttpCode(HttpStatus.OK)
+    async login(@Request() req) {
+        return await this.authService.login(req.user);
     }
 
-    @UseGuards(AuthenticationGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user;
+    @UseGuards(RefreshJwtGuard)
+    @Post('refresh')
+    @HttpCode(HttpStatus.OK)
+    async refrshToken(@Request() req) {
+        return this.authService.refreshToken(req.user);
     }
 }

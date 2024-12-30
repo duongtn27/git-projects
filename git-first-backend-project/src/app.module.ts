@@ -38,6 +38,9 @@ import { Employee } from './user/entities/employee.entities';
 import { Lecture } from './user/entities/lecture.entities';
 import { Security } from './user/entities/security.entities';
 import { Student } from './user/entities/student.entities';
+import { AuthorizationModule } from './authorization/authorization.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 
 @Module({
@@ -63,6 +66,7 @@ import { Student } from './user/entities/student.entities';
         },
       }),
     }),
+    JwtModule,
     PassportModule.register({ session: true}),
     MarkModule,
     CampusModule,
@@ -80,8 +84,9 @@ import { Student } from './user/entities/student.entities';
     CourseModule,
     AuthModule,
     AuthenticationModule,
+    AuthorizationModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }
